@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>bind call apply</title>
+	<meta charset="UTF-8">
+</head>
+<body>
+<script type="text/javascript">
+// 运用闭包并且立即执行时 使用var = color;此时color为局部变量，因此sayColor()结果为undefined,若不使用var,则color为全局变量，此时调用sayColor结果为blue
+	(function() {
+		var color = 'blue';
+		var o = {color:'red'};
+		function sayColor() {
+			alert(this.color);
+		};
+		sayColor();	//undefined
+		sayColor.call(o);	//red
+		sayColor.apply(o);	//red
+	})()
+
+// 不用闭包
+	var food = 'rice';
+	var o2 = {food:'cake'};
+	function sayFood() {
+		alert(this.food);
+	}
+	sayFood();	//rice
+	sayFood.call(o2);	//cake
+	sayFood.apply(o2);	//cake
+
+	//bind用法
+	var anotherSay = sayFood.bind(o2);
+	anotherSay();	//cake
+</script>
+</body>
+</html>
